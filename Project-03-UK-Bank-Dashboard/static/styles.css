@@ -1,0 +1,45 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Sidebar Fixed Width */
+.sidebar-container {
+    width: 260px;
+    min-height: 100vh;
+    flex-shrink: 0;
+}
+
+.bg-soft-primary { background-color: rgba(13, 110, 253, 0.1); }
+.bg-soft-success { background-color: rgba(25, 135, 84, 0.1); }
+.bg-soft-warning { background-color: rgba(255, 193, 7, 0.1); }
+
+.card {
+    border-radius: 15px;
+}
+
+.icon-box {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Inputs inside the dark card */
+input::placeholder {
+    color: #adb5bd !important; /* Light gray placeholder */
+    opacity: 1;
+}
+
+.hover-light:hover {
+    color: #fff !important;
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 8px;
+}
+
+canvas {
+    max-height: 280px;
+    width: 100% !important;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChurnGuard AI | Customer Retention</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+</div>
+
+<div class="container d-flex align-items-center min-vh-100">
+    <div class="glass-container row w-100 mx-auto p-0">
+        
+        <div class="col-lg-7 p-5 border-end border-light-subtle">
+            <h3 class="fw-bold mb-1 text-primary">🚀 ChurnGuard AI</h3>
+            <p class="text-muted mb-4">Senior-Level Customer Retention Modeling</p>
+            
+            <form id="churnForm">
+                <div class="row g-3">
+                    <div class="col-12"><h6 class="text-uppercase text-primary small fw-bold ls-1">Customer Profile</h6></div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Gender</label>
+                        <select class="form-select form-select-sm" name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Senior Citizen</label>
+                        <select class="form-select form-select-sm" name="SeniorCitizen">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Partner</label>
+                        <select class="form-select form-select-sm" name="Partner">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-4"><h6 class="text-uppercase text-primary small fw-bold ls-1">Service Details</h6></div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Internet Service</label>
+                        <select class="form-select form-select-sm" name="InternetService">
+                            <option value="Fiber optic">Fiber Optic</option>
+                            <option value="DSL">DSL</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Tech Support</label>
+                        <select class="form-select form-select-sm" name="TechSupport">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No internet service">No Internet</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Contract</label>
+                        <select class="form-select form-select-sm" name="Contract">
+                            <option value="Month-to-month">Month-to-Month</option>
+                            <option value="One year">One Year</option>
+                            <option value="Two year">Two Year</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-4"><h6 class="text-uppercase text-primary small fw-bold ls-1">Financial Metrics</h6></div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Tenure (Months)</label>
+                        <input type="number" class="form-control form-control-sm" name="tenure" value="12" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Monthly Charges ($)</label>
+                        <input type="number" step="0.01" class="form-control form-control-sm" name="MonthlyCharges" value="70.0" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Total Charges ($)</label>
+                        <input type="number" step="0.01" class="form-control form-control-sm" name="TotalCharges" value="840.0" required>
+                    </div>
+                    
+                    <input type="hidden" name="Dependents" value="No">
+                    <input type="hidden" name="PhoneService" value="Yes">
+                    <input type="hidden" name="MultipleLines" value="No">
+                    <input type="hidden" name="OnlineSecurity" value="No">
+                    <input type="hidden" name="OnlineBackup" value="No">
+                    <input type="hidden" name="DeviceProtection" value="No">
+                    <input type="hidden" name="StreamingTV" value="No">
+                    <input type="hidden" name="StreamingMovies" value="No">
+                    <input type="hidden" name="PaperlessBilling" value="Yes">
+                    <input type="hidden" name="PaymentMethod" value="Electronic check">
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm transition-btn">
+                        Analyze Customer Risk
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-5 p-5 d-flex flex-column justify-content-center align-items-center bg-white bg-opacity-25">
+            
+            <div id="initial-view" class="text-center text-muted">
+                <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="AI" width="80" class="mb-3 opacity-50">
+                <h5>Ready to Predict</h5>
+                <p class="small">Enter customer data to generate a risk profile.</p>
+            </div>
+
+            <div id="loading-view" class="text-center d-none">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <p class="small fw-bold animate-pulse">Running Random Forest Model...</p>
+            </div>
+
+            <div id="result-view" class="text-center w-100 d-none fade-in-up">
+                
+                <h5 class="text-uppercase fw-bold text-muted ls-1 mb-4">Churn Probability</h5>
+                
+                <div class="position-relative d-inline-block mb-4">
+                    <svg class="progress-ring" width="160" height="160">
+                        <circle class="progress-ring__circle-bg" stroke="#e6e6e6" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                        <circle class="progress-ring__circle" stroke="#0d6efd" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                    </svg>
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <span id="prob-text" class="display-4 fw-bold text-dark">0%</span>
+                    </div>
+                </div>
+
+                <div id="prediction-badge" class="badge bg-success px-4 py-2 rounded-pill mb-3 fs-6">
+                    Low Risk
+                </div>
+
+                <div class="card border-0 shadow-sm bg-light mt-3">
+                    <div class="card-body text-start">
+                        <h6 class="fw-bold text-primary mb-2">💡 AI Recommendation</h6>
+                        <p id="recommendation-text" class="small text-muted mb-0">
+                            Analysis complete. No immediate action required.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
